@@ -14,11 +14,6 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y openssh-server daemontools dae
 # Copy file
 COPY ./service /service
 
-ONBUILD COPY ./*.pub /tmp/
-
-ONBUILD RUN cat /tmp/*.pub >> /root/.ssh/authorized_keys
-
-/root/.ssh/authorized_keys
 # setting 
 RUN mkdir /var/run/sshd && \
 sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && \
