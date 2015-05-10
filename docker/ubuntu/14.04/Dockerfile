@@ -6,10 +6,12 @@ MAINTAINER Oyach <lzy7750015@gmail.com>
 # 1. daemontools
 # 2. ssh
 # =======================================
+ENV DEBIAN_FRONTEND noninteractive
 
 # Install OpenSSH and daemontools
-RUN apt-get update; \
-DEBIAN_FRONTEND=noninteractive apt-get install -y openssh-server daemontools daemontools-run
+RUN apt-get update && \
+apt-get install -y openssh-server daemontools daemontools-run && \
+rm -rf /var/lib/apt/lists/*
 
 # Copy file
 COPY ./service /service
@@ -23,6 +25,9 @@ chmod +x /service/sshd/run
 
 # Define default command.
 CMD svscan /service
+
+# VOLUME 
+VOLUME ['/etc/ssh', '/service']
 
 # run sshd as the root user
 USER root
