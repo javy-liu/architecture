@@ -8,7 +8,7 @@ web:
   environment:
    SONARQUBE_JDBC_USERNAME: sonar
    SONARQUBE_JDBC_PASSWORD: sonar
-   SONARQUBE_JDBC_URL: "jdbc:mysql://mysql/sonar"
+   SONARQUBE_JDBC_URL: "jdbc:mysql://mysql/sonar?useUnicode=true&characterEncoding=utf8"
 mysql:
   build: .
   environment:
