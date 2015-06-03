@@ -1,0 +1,16 @@
+mysql:
+  build: .
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+
+web:
+  image: sonarqube
+  links:
+    - mysql: mysql
+  ports:
+    - "9000:9000"
+    - "9092:9092"
+  environment:
+    SONARQUBE_JDBC_USERNAME: sonar
+    SONARQUBE_JDBC_PASSWORD: sonar
+    SONARQUBE_JDBC_URL: jdbc:mysql://mysql/sonar
