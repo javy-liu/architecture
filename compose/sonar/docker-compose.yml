@@ -2,14 +2,17 @@ web:
   image: sonarqube
   links:
    mysql: mysql
-  ports:
-   - "9000:9000"
-   - "9092:9092"
   environment:
    SONARQUBE_JDBC_USERNAME: sonar
    SONARQUBE_JDBC_PASSWORD: sonar
    SONARQUBE_JDBC_URL: "jdbc:mysql://mysql/sonar?useUnicode=true&characterEncoding=utf8"
+  dns:
+   - 172.17.0.73
 mysql:
   build: .
+  ports:
+   - "3306:3306"
   environment:
    MYSQL_ROOT_PASSWORD: root
+  dns:
+   - 172.17.0.73
