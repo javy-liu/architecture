@@ -1,0 +1,9 @@
+git:latest
+greenballs:latest
+disk-usage:latest
+build-pipeline-plugin:latest
+delivery-pipeline-plugin:latest
+clone-workspace-scm:latest
+deploy:latest
+copyartifact:latest
+thinBackup:latest
