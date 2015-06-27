@@ -7,3 +7,4 @@ clone-workspace-scm:latest
 deploy:latest
 copyartifact:latest
 thinBackup:latest
+nodejs:latest

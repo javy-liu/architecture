@@ -1,10 +1,6 @@
-mysql:
-  image: mysql/mysql-server
+jenkins:
+  build: .
   environment:
    MYSQL_ROOT_PASSWORD: root
 
-create:
-  image: mysql/mysql-server
-  command: sh -c 'exec mysql -h"$MYSQL_PORT_3306_TCP_ADDR" -P"$MYSQL_PORT_3306_TCP_PORT" -uroot -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD"''mysql -h"$MYSQL_PORT_3306_TCP_ADDR" -P"$MYSQL_PORT_3306_TCP_PORT" -uroot -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD" -e"create database sonar"'
-  links:
-   mysql: mysql
+docker run -d --name jenkins -v /opt/meituan/docker/jenkins_home:/var/jenkins_home jenkins
