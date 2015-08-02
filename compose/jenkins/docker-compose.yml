@@ -1,6 +1,8 @@
 jenkins:
   build: .
-  environment:
-   MYSQL_ROOT_PASSWORD: root
-
-docker run -d --name jenkins -v /opt/meituan/docker/jenkins_home:/var/jenkins_home jenkins
+  volumes:
+   - /var/jenkins_home
+  restart: always
+  ports:
+    - "8080:8080"
+    - "5000:5000"

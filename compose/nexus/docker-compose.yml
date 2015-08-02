@@ -1,0 +1,4 @@
+nexus:
+  image: sonatype/nexus
+  volumes:
+   - /Users/Shared/docker/nexus/sonatype-work:/sonatype-work

@@ -1,0 +1,49 @@
+nexus:
+  image: registry
+  volumes:
+   - /Users/Shared/docker/nexus/sonatype-work:/sonatype-work
+nexus-data:
+  image: registry
+  volumes:
+   - /Users/Shared/docker/nexus/sonatype-work:/sonatype-work
+
+
+docker run -d -p 5000:5000 --name registry --restart=always \
+	--restart=always \
+	-e REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY=/var/lib/registry \
+	-v /Users/Shared/docker/registry/registry:/var/lib/registry \
+	registry:2.0.1
+
+docker run -d -p 5555:5000 --name mirror --restart=always \
+    -e STANDALONE=false \
+    -e STORAGE_PATH=/var/lib/registry \
+    -e MIRROR_SOURCE=https://registry-1.docker.io \
+    -e MIRROR_SOURCE_INDEX=https://index.docker.io \
+    -v /Users/Shared/docker/mirror/registry:/var/lib/registry \
+    registry
+
+
+docker run -d -p 8081:8081 --name nexus --restart=always \
+--volumes-from nexus-data  \
+sonatype/nexus
+
+docker tag hello-world:latest 192.168.99.100:5000/hello-mine:latest
+docker push 192.168.99.100:5000/hello-mine:latest
+
+docker tag node:latest 192.168.99.100:5000/hello-node:latest
+docker push 192.168.99.100:5000/hello-node:latest
+
+--registry-mirror=http://192.168.99.100:5555
+--insecure-registry 192.168.99.100:5000
+
+docker run -d -v /sonatype-work sonatype/nexus
+
+docker run -d --name nexus-data \
+sonatype/nexus echo "data-only container for Nexus"
+
+docker run -d \
+--volumes-from nexus-data  \
+sonatype/nexus
+
+
+ mkdir nexus-data && chown -R 200 nexus-data
